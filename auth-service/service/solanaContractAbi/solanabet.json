@@ -1,0 +1,1178 @@
+{
+    "version": "0.1.0",
+    "name": "betting_platform",
+    "instructions": [
+        {
+            "name": "initialize",
+            "accounts": [
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "authority",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "gameType",
+                    "type": "string"
+                },
+                {
+                    "name": "minBet",
+                    "type": "u64"
+                },
+                {
+                    "name": "houseFeeBp",
+                    "type": "u16"
+                },
+                {
+                    "name": "divisor",
+                    "type": "u64"
+                },
+                {
+                    "name": "airdropFee",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "placeBet",
+            "accounts": [
+                {
+                    "name": "user",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "oracle",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "airdropMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "userBets",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "airdropVault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "roundId",
+                    "type": "string"
+                },
+                {
+                    "name": "autoCashoutScaled",
+                    "type": "u64"
+                },
+                {
+                    "name": "amount",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "cashout",
+            "accounts": [
+                {
+                    "name": "user",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "oracle",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "userBets",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "roundId",
+                    "type": "string"
+                },
+                {
+                    "name": "multiplier",
+                    "type": "u64"
+                },
+                {
+                    "name": "progressiveFraction",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "refund",
+            "accounts": [
+                {
+                    "name": "user",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "oracle",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "userBets",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "roundId",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "emergencyStop",
+            "accounts": [
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "authority",
+                    "isMut": true,
+                    "isSigner": true
+                }
+            ],
+            "args": [
+                {
+                    "name": "pause",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "changeAccess",
+            "accounts": [
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "authority",
+                    "isMut": true,
+                    "isSigner": true
+                }
+            ],
+            "args": [
+                {
+                    "name": "newOracle",
+                    "type": "publicKey"
+                },
+                {
+                    "name": "newMinBet",
+                    "type": "u64"
+                },
+                {
+                    "name": "newHouseFeeBp",
+                    "type": "u16"
+                },
+                {
+                    "name": "pause",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "withdrawHouse",
+            "accounts": [
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "to",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "oracle",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "amount",
+                    "type": "u64"
+                },
+                {
+                    "name": "isAirdrop",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "emergencyWithdrawHouse",
+            "accounts": [
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "to",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "oracle",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "amount",
+                    "type": "u64"
+                },
+                {
+                    "name": "isAirdrop",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "depositAirdrop",
+            "accounts": [
+                {
+                    "name": "user",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "oracle",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "amount",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "airdrop",
+            "accounts": [
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "to",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "oracle",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "amount",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "createOrJoinBet",
+            "accounts": [
+                {
+                    "name": "user",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "oracle",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "airdropMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "flipBet",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "airdropVault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "roundId",
+                    "type": "string"
+                },
+                {
+                    "name": "selection",
+                    "type": "u8"
+                },
+                {
+                    "name": "amount",
+                    "type": "u64"
+                },
+                {
+                    "name": "isJoin",
+                    "type": "bool"
+                },
+                {
+                    "name": "isAuto",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "flipCashout",
+            "accounts": [
+                {
+                    "name": "oracle",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "flipBet",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "to",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "roundId",
+                    "type": "string"
+                },
+                {
+                    "name": "selection",
+                    "type": "u8"
+                }
+            ]
+        },
+        {
+            "name": "gameCreate",
+            "accounts": [
+                {
+                    "name": "authority",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "gamePda",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "gameType",
+                    "type": "string"
+                },
+                {
+                    "name": "roundId",
+                    "type": "string"
+                },
+                {
+                    "name": "publicSeed",
+                    "type": "string"
+                },
+                {
+                    "name": "hashSeed",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "gameFinish",
+            "accounts": [
+                {
+                    "name": "authority",
+                    "isMut": false,
+                    "isSigner": true
+                },
+                {
+                    "name": "bettingMachine",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "gamePda",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "roundId",
+                    "type": "string"
+                },
+                {
+                    "name": "serverSeed",
+                    "type": "string"
+                },
+                {
+                    "name": "result",
+                    "type": "u64"
+                }
+            ]
+        }
+    ],
+    "accounts": [
+        {
+            "name": "BettingMachine",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "bump",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "authority",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "minBet",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "houseFeeBp",
+                        "type": "u16"
+                    },
+                    {
+                        "name": "divisor",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "paused",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "houseCollected",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "totalBets",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "isAirdropFeeEnabled",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "airdropFee",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "airdropCollected",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "oracle",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "gameType",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Bets",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "bump",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "user",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "round",
+                        "type": "string"
+                    },
+                    {
+                        "name": "wager",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "totalWager",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "autoCashoutScaled",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "cashedOut",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "isRefunded",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "payout",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "cashedOutAt",
+                        "type": "i64"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Game",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "gameType",
+                        "type": "string"
+                    },
+                    {
+                        "name": "roundId",
+                        "type": "string"
+                    },
+                    {
+                        "name": "publicSeed",
+                        "type": "string"
+                    },
+                    {
+                        "name": "serverSeed",
+                        "type": "string"
+                    },
+                    {
+                        "name": "hashSeed",
+                        "type": "string"
+                    },
+                    {
+                        "name": "result",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "createdAt",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "revealed",
+                        "type": "bool"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "FlipBets",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "bump",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "userCreated",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "roomId",
+                        "type": "string"
+                    },
+                    {
+                        "name": "wager",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "createdSelection",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "joinedSelection",
+                        "type": "u8"
+                    },
+                    {
+                        "name": "userJoined",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "payout",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "cashedOut",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "cashedOutAt",
+                        "type": "i64"
+                    },
+                    {
+                        "name": "playerCount",
+                        "type": "i64"
+                    }
+                ]
+            }
+        }
+    ],
+    "events": [
+        {
+            "name": "BetPlaced",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "roundId",
+                    "type": "string",
+                    "index": false
+                },
+                {
+                    "name": "wager",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "autoCashoutScaled",
+                    "type": "u64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "FlipCreated",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "roundId",
+                    "type": "string",
+                    "index": false
+                },
+                {
+                    "name": "wager",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "selection",
+                    "type": "u8",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "FlipCashedOut",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "roundId",
+                    "type": "string",
+                    "index": false
+                },
+                {
+                    "name": "betAmount",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "payout",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "winingSelection",
+                    "type": "u8",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "CashedOut",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "roundId",
+                    "type": "string",
+                    "index": false
+                },
+                {
+                    "name": "betAmount",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "payout",
+                    "type": "u64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "Refunded",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "round",
+                    "type": "string",
+                    "index": false
+                },
+                {
+                    "name": "amount",
+                    "type": "u64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "Paused",
+            "fields": [
+                {
+                    "name": "paused",
+                    "type": "bool",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "GlobalConfigChanged",
+            "fields": [
+                {
+                    "name": "oracle",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "minBet",
+                    "type": "u64",
+                    "index": false
+                },
+                {
+                    "name": "houseFeeBp",
+                    "type": "u16",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "HouseWithdrawn",
+            "fields": [
+                {
+                    "name": "to",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "amount",
+                    "type": "u64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "EmergencyHouseWithdrawn",
+            "fields": [
+                {
+                    "name": "to",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "amount",
+                    "type": "u64",
+                    "index": false
+                }
+            ]
+        },
+        {
+            "name": "Airdrop",
+            "fields": [
+                {
+                    "name": "to",
+                    "type": "publicKey",
+                    "index": false
+                },
+                {
+                    "name": "amount",
+                    "type": "u64",
+                    "index": false
+                }
+            ]
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "Paused",
+            "msg": "Contract is paused"
+        },
+        {
+            "code": 6001,
+            "name": "BetTooSmall",
+            "msg": "Bet too small"
+        },
+        {
+            "code": 6002,
+            "name": "InvalidRoundId",
+            "msg": "Invalid round id"
+        },
+        {
+            "code": 6003,
+            "name": "RoundIdMismatch",
+            "msg": "Round ID mismatch"
+        },
+        {
+            "code": 6004,
+            "name": "RoundNotLive",
+            "msg": "Round not live"
+        },
+        {
+            "code": 6005,
+            "name": "AlreadyBet",
+            "msg": "Already bet"
+        },
+        {
+            "code": 6006,
+            "name": "AlreadyCashedOut",
+            "msg": "Already cashed out"
+        },
+        {
+            "code": 6007,
+            "name": "NoWager",
+            "msg": "No wager"
+        },
+        {
+            "code": 6008,
+            "name": "PayoutOverflow",
+            "msg": "Payout overflow"
+        },
+        {
+            "code": 6009,
+            "name": "UnauthorizedOracle",
+            "msg": "Unauthorized oracle"
+        },
+        {
+            "code": 6010,
+            "name": "OracleMustSign",
+            "msg": "Oracle must sign this transaction"
+        },
+        {
+            "code": 6011,
+            "name": "Unauthorized",
+            "msg": "Unauthorized"
+        },
+        {
+            "code": 6012,
+            "name": "AlreadyRefunded",
+            "msg": "Already refunded"
+        },
+        {
+            "code": 6013,
+            "name": "InsufficientHouse",
+            "msg": "Insufficient house funds"
+        },
+        {
+            "code": 6014,
+            "name": "BetWasNotCreated",
+            "msg": "Flip Round was not created"
+        },
+        {
+            "code": 6015,
+            "name": "NoUserJoined",
+            "msg": "No User joined"
+        },
+        {
+            "code": 6016,
+            "name": "SelectionExists",
+            "msg": "Selection Already Exists"
+        },
+        {
+            "code": 6017,
+            "name": "AlreadyRevealed",
+            "msg": "Already Revealed"
+        },
+        {
+            "code": 6018,
+            "name": "ServerSeedMisMatch",
+            "msg": "Serve_Seed MisMatched"
+        },
+        {
+            "code": 6019,
+            "name": "WinnerMisMatched",
+            "msg": "Winner MisMathced"
+        },
+        {
+            "code": 6020,
+            "name": "GameFilled",
+            "msg": "Game Filled"
+        },
+        {
+            "code": 6021,
+            "name": "BetAlreadyExists",
+            "msg": "Bet Already Exist"
+        },
+        {
+            "code": 6022,
+            "name": "InsufficientFunds",
+            "msg": "Insufficient Balance"
+        },
+        {
+            "code": 6023,
+            "name": "ArithmeticOverflow",
+            "msg": "Arithmetic overflow/underflow"
+        },
+        {
+            "code": 6024,
+            "name": "StringTooLong",
+            "msg": "String input too long"
+        },
+        {
+            "code": 6025,
+            "name": "InvalidDivisor",
+            "msg": "Divisor must be non-zero"
+        },
+        {
+            "code": 6026,
+            "name": "InvalidFeeBp",
+            "msg": "Fee basis points exceed 10000"
+        },
+        {
+            "code": 6027,
+            "name": "FeeTooLarge",
+            "msg": "Fee exceeds bet amount"
+        },
+        {
+            "code": 6028,
+            "name": "MultiplierTooLow",
+            "msg": "Multiplier below minimum 1x"
+        },
+        {
+            "code": 6029,
+            "name": "InvalidProgressiveFraction",
+            "msg": "Progressive fraction > divisor"
+        },
+        {
+            "code": 6030,
+            "name": "WagerMismatch",
+            "msg": "Wager amounts must match"
+        },
+        {
+            "code": 6031,
+            "name": "GameNotFilled",
+            "msg": "Game not yet filled (need 2 players)"
+        },
+        {
+            "code": 6032,
+            "name": "InvalidAirdropMachine",
+            "msg": "Invalid airdrop machine account"
+        },
+        {
+            "code": 6033,
+            "name": "InvalidSelection",
+            "msg": "Invalid selection (must be 1 or 2)"
+        },
+        {
+            "code": 6034,
+            "name": "InvalidHashSeed",
+            "msg": "Invalid hash seed format"
+        }
+    ]
+}
